@@ -50,7 +50,7 @@ while True:
             continue
     elif text.lower() == 'fill all':
         for flask in flask_names:
-            flasks[flask.replace(" ", "")].fill()
+            flasks[flask].fill()
             continue
     elif 'fill' in text.lower():
         flask = text[5:].lower()
