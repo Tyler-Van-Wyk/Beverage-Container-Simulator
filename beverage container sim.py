@@ -3,8 +3,58 @@ import re
 def print_flasks():
     for flask in flasks.values():
         #print('{0} has {1}/{2} ounces of {3}' .format(flask.name, flask.current_volume, flask.max_volume, flask.content))
-        
-        print("  {0}\n    ╔═╗\n  ╔═╝ ╚═╗\n  ║▒▒▒▒▒║\n  ║▒{1}/{2}▒║\n  ║▒▒▒▒▒║\n  ╚═════╝".format(flask.name, flask.current_volume, flask.max_volume))
+        if flask.max_volume < 10:
+            if flask.max_volume == flask.current_volume or flask.current_volume > flask.max_volume*0.66 :
+
+                print("  {0}\n    ╔═╗\n  ╔═╝ ╚═╗\n  ║▒▒▒▒▒║\n  ║▒{1}/{2}▒║\n  ║▒▒▒▒▒║\n  ╚═════╝".format(flask.name, flask.current_volume, flask.max_volume))
+            
+            elif flask.max_volume//2 <= flask.current_volume <= flask.max_volume*0.66:
+                
+                print("  {0}\n    ╔═╗\n  ╔═╝ ╚═╗\n  ║     ║\n  ║▒{1}/{2}▒║\n  ║▒▒▒▒▒║\n  ╚═════╝".format(flask.name, flask.current_volume, flask.max_volume))
+            
+            elif 0 < flask.current_volume < flask.max_volume//2:
+
+                print("  {0}\n    ╔═╗\n  ╔═╝ ╚═╗\n  ║     ║\n  ║ {1}/{2} ║\n  ║▒▒▒▒▒║\n  ╚═════╝".format(flask.name, flask.current_volume, flask.max_volume))
+            
+            else:
+                print("  {0}\n    ╔═╗\n  ╔═╝ ╚═╗\n  ║     ║\n  ║ {1}/{2} ║\n  ║     ║\n  ╚═════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+        elif flask.max_volume >= 10 and flask.current_volume < 10:
+
+            if flask.max_volume == flask.current_volume or flask.current_volume > flask.max_volume*0.66 :
+                
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║▒▒▒▒▒▒▒║\n  ║▒▒{1}/{2}▒║\n  ║▒▒▒▒▒▒▒║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+            elif flask.max_volume//2 <= flask.current_volume <= flask.max_volume*0.66:
+
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║       ║\n  ║▒▒{1}/{2}▒║\n  ║▒▒▒▒▒▒▒║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+            elif 0 < flask.current_volume < flask.max_volume//2:
+            
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║       ║\n  ║  {1}/{2} ║\n  ║▒▒▒▒▒▒▒║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+            else:
+
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║       ║\n  ║  {1}/{2} ║\n  ║       ║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+        elif flask.max_volume >= 10 and flask.current_volume >= 10:
+            
+            if flask.max_volume == flask.current_volume or flask.current_volume > flask.max_volume*0.66 :
+                
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║▒▒▒▒▒▒▒║\n  ║▒{1}/{2}▒║\n  ║▒▒▒▒▒▒▒║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+            elif flask.max_volume//2 <= flask.current_volume <= flask.max_volume*0.66:
+
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║       ║\n  ║▒{1}/{2}▒║\n  ║▒▒▒▒▒▒▒║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+            elif 0 < flask.current_volume < flask.max_volume//2:
+            
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║       ║\n  ║ {1}/{2} ║\n  ║▒▒▒▒▒▒▒║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
+            else:
+
+                print("  {0}\n     ╔═╗\n  ╔══╝ ╚══╗\n  ║       ║\n  ║ {1}/{2} ║\n  ║       ║\n  ╚═══════╝".format(flask.name, flask.current_volume, flask.max_volume))
+
 
 class flask:
     def __init__(self, name, current_volume, max_volume, content, units):
@@ -14,14 +64,17 @@ class flask:
         self.content = content
         self.units = units
     def drink(self):
+        if self.current_volume == 0:
+            print('The cotainer is empty!')
+            return
         self.current_volume -= 1
         print(self.name + ' now has ' + str(self.current_volume) + '/' + str(self.max_volume) + ' ounces of ' + self.content)
     def fill(self):
         self.current_volume = self.max_volume
         print(self.name + ' now has ' + str(self.current_volume) + '/' + str(self.max_volume) + ' ounces of ' + self.content)
 
-# flask1 = flask("Flask 1", 8, 8, 'Wine', 'Ounces')
-# flask2 = flask('Flask 2', 8, 8, 'Wine', 'Ounces')
+#flask1 = flask("Flask 1", 10, 10, 'Wine', 'Ounces')
+#flask2 = flask('Flask 2', 8, 8, 'Wine', 'Ounces')
 
 # flasks = {flask1.name:flask1, flask2.name:flask2}
 # flask_names = [flask1.name.lower(), flask2.name.lower()]
@@ -38,7 +91,7 @@ while True:
     #     print('You have no containers created right now, type "create" to make one.')
     text = input()
     if 'help' == text.lower():
-        print("create - create a new container\ndrink <container name> - drink from the container, decrement it by 1 unit\nfill <container name> - fill the container to it's maximum capacity\nfill all - fill all containers to their maximum capacity\nflasks - see a visual representation of your containers and their status")
+        print("create - create a new container\ndrink <container name> - drink from the container, decrement it by 1 unit\nfill <container name> - fill the container to it's maximum capacity\nfill all - fill all containers to their maximum capacity\ncontainers - see a visual representation of your containers and their status")
         continue    
     if 'drink' in text.lower():
         flask = text[6:].lower() 
@@ -48,7 +101,7 @@ while True:
         else:
             print("You don't seem to have a container with that name...")
             continue
-    elif text.lower() == 'fill all':
+    elif 'fill all' in text.lower():
         for flask in flask_names:
             flasks[flask].fill()
             continue
